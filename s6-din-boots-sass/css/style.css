@@ -1,13 +1,22 @@
 .border-color-peru{
   border:1px solid peru;
 }
+header{
+  height: 3rem;
+}
 .border-purple{
   border:1px solid purple;
+}
+.card{
+  height: 18rem;
 }
   
 .border-magenta{
   border:1px solid magenta
 }
+.hght-20{
+height: 20rem;
+} 
 .border-green{
   border:1px solid green
 }
