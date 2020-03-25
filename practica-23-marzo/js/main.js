@@ -75,12 +75,12 @@ function showProductCards(arr) {
             <div class="form-group row">
                 <label for="inputPassword" class="col-sm-4 col-form-label">Cantidad:</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control quantity-form" id="cantidad-${index}">
                 </div>
             </div>
             <div class="btn-wrapper d-flex justify-content-between">
                 <div class="btn btn-primary btn-details w-50" data-product-index="${index}">Ver Detalle</div>
-                <div class="btn btn-success w-50 ml-2">Agregar al carrito</div>
+                <div class="btn btn-success btn-add-to-cart w-50 ml-2" data-add-product-index="${index}">Agregar al carrito</div>
             </div>
         </li>
         `
@@ -103,6 +103,7 @@ function showProductDetails(product) {
     </div>`
     document.getElementById("card-details").innerHTML = newContent
 }
+
 function addDetailsListener() {
     let detailsButtons = document.getElementsByClassName("btn-details")
     let i
@@ -116,28 +117,64 @@ function addDetailsListener() {
 }
 addDetailsListener()
 
-var productsInShoppingCar = [
+var productsInShoppingCart = [
 ]
 function showProductTicket(arr) {
-    document.getElementById("shopping-car").innerHTML = ""
-    arr.forEach((product) => {
+    document.getElementById("shopping-cart").innerHTML = ""
+    arr.forEach((product, index) => {
         let productName = product.name
         let productPrice = product.price
-        let currentContent = document.getElementById("shopping-car").innerHTML
+        let productQuantity = product.cantidad
+        let currentContent = document.getElementById("shopping-cart").innerHTML
         let newContent = `
     <li class="list-group-item d-flex justify-content-between align-items-center">
                         ${productName}
-                        <span class="badge badge-primary badge-pill">${productPrice}</span>
-                        <div class="btn btn-danger">X</div>
+                        <span class="badge badge-primary badge-pill">${productPrice}x${productQuantity}</span>
+                        <div class="btn btn-danger btn-delated" data-product-delate-index="${index}">X</div>
                     </li>
     `
-        document.getElementById("shopping-car").innerHTML = currentContent + newContent
+        document.getElementById("shopping-cart").innerHTML = currentContent + newContent
     })
-    let totalPrice = 0
+    let totalPrice
     totalPrice = arr.reduce((total, product) => {
-        total += product.price
+        total += product.price * product.cantidad
         return total
     }, 0)
     document.getElementById("total").innerHTML = `Total: <span>${totalPrice}</span>`
 }
-showProductTicket(productsInShoppingCar)
+showProductTicket(productsInShoppingCart)
+
+function addShoppingCartListener() {
+    let addButtons = document.getElementsByClassName("btn-add-to-cart")
+    let getquantity = document.getElementsByClassName("quantity-form")
+    let i
+    for (i = 0; i < addButtons.length; i++) {
+        addButtons[i].addEventListener("click", (event) => {
+            let productIndex = event.target.dataset.addProductIndex
+            let cantidad = getquantity[productIndex].value
+            let product = productsArray[productIndex]
+            console.log(product)
+            productsInShoppingCart.push({
+                cantidad: cantidad,
+                ...product
+            })
+            showProductTicket(productsInShoppingCart)
+            deleteButtonListener(productsInShoppingCart)
+
+        })
+    }
+}
+addShoppingCartListener()
+
+function deleteButtonListener() {
+    let buttonsDelated = document.getElementsByClassName("btn-delated")
+    let i
+    for (i = 0; i < buttonsDelated.length; i++) {
+        buttonsDelated[i].addEventListener("click", (event) => {
+            let productIndex = event.target.dataset.productDelateIndex
+            productsInShoppingCart.splice(productIndex, 1)
+            showProductTicket(productsInShoppingCart)
+            deleteButtonListener()
+        })
+    }
+}
