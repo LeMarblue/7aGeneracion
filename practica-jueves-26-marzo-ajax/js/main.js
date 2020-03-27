@@ -14,8 +14,11 @@ function addButtonSaveListener() {
         $.ajax({
             url: "https://javascript-ajax-d0ce6.firebaseio.com/marlene/koders/.json",
             method: "POST",
-            data: koderInfo,
-            success: (response) => { fetchKoders() }
+            data: JSON.stringify(koderInfo),
+            success: (response) => {
+                console.log(response)
+                fetchKoders()
+            }
         })
 
     })
@@ -70,7 +73,7 @@ function addDeletedButtonListener() {
 function deleteKoder(hash) {
     $.ajax({
         url: `https://javascript-ajax-d0ce6.firebaseio.com/marlene/koders/${hash}.json`,
-        method="DELETE",
+        method: "DELETE",
         success: (response) => { fetchKoders() }
 
     })
