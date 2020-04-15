@@ -50,7 +50,7 @@ var kodersDb = [{
     totalAssistance: 16
 }]
 
-function getKodersWithLessDeliveredPractices(arrKoders) {
+function getKodersWithLessDeliveredPractices(arrKoders) { //quitarle los parentesis y hacerlo en una sola linea 
     let filteredKoders = arrKoders.filter((koder) => {
         return koder.deliveredPractices < 10
     })
@@ -76,23 +76,16 @@ function getAssistenceAverage(arrKoders) {
     let assistenceAverage = totalAssistance / arrKoders.length
     return assistenceAverage
 }
-var practicesContainer = document.getElementById("practices-container")
-var kodersWithLessDeliveredPractices = getKodersWithLessDeliveredPractices(kodersDb)
-kodersWithLessDeliveredPractices.forEach((koder, index) => {
-    practicesContainer.innerHTML = `<tr>
-    <td>${index}</td>
-    <td>${koder.name} ${koder.lastName}</td>
-    <td>${koder.deliveredPractices}</td>
- </tr>`
-})
+
+//-5
+
+
+
+
 /*Teniendo el array kodersDb, realizar las siguientes operaciones:
 1.- Obtener a todos los koders cuyas practicas entregadas (deliveredPractices) sea menor a 10
 2.- Obtener a todos los koders cuya asistencia (totalAssistance) sea menor a 20
-3.- Obtener el promedio general de prácticas`<tr>
-    <td>${index}</td>
-    <td>${koder.name} ${koder.lastName}</td>
-    <td>${koder.deliveredPractices}</td>
-</tr>` entregadas
+3.- Obtener el promedio general de prácticas entregadas
 4.- Obtener el promedio general de asistencias
 5.- En el elemento con el id "practices-container" insertar una fila por cada koder obtenido en el paso 1, debería tener la siguiente estructura:
 <tr>
@@ -100,6 +93,22 @@ kodersWithLessDeliveredPractices.forEach((koder, index) => {
     <td>{nombre completo del koder}</td>
     <td>{prácticas del koder}</td>
 </tr>
+kodersWithLessDeliveredPractices.forEach((koder, index) => {
+        practicesContainer.innerHTML = `<tr>
+    <td>${index}</td>
+    <td>${koder.name} ${koder.lastName}</td>
+    <td>${koder.deliveredPractices}</td>
+ </tr>`
+})
+/*var practicesContainer = document.getElementById("practices-container")
+var kodersWithLessDeliveredPractices = getKodersWithLessDeliveredPractices(kodersDb)
+creattext node
+create element
+byid
+apendchild
+-- creamos  el tr let koderRow=document.createlement ("tr")
+
+
 6.- En el elemento con el id "assistances-container" insertar una fila por cada koder obtenido en el paso 2, debería tener la siguiente estructura:
 <tr>
     <td>{número de koder}</td>

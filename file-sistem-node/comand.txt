@@ -1,0 +1,1 @@
+mkdir A A/B A/C A/C/D A/E && touch A/B/x && touch A/B/y && touch A/E/z
