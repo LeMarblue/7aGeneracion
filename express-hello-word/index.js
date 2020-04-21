@@ -43,23 +43,41 @@ app.delete('/', (request, response) => {
   })
 })
 
-app.get('/my-content', (request, response) => {
-  fs.readFile('./new-content.json', 'utf8', (error, data) => {
-    if (error) {
-      response.status(500)
-      response.end()
-      return
-    }
-    response.json(
-      JSON.parse(data)
-    )
+
+function readFileProm(path, encoding) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, encoding, (error, data) => {
+      if (error) {
+        reject(error)
+        return
+
+      }
+      resolve(data)
+    })
   })
+}
+
+app.get('/my-content', async (request, response) => {
+  // fs.readFile('./new-content.json', 'utf8', (error, data) => {
+  //   if (error) {
+  //     response.status(500)
+  //     response.end()
+  //     return
+  //   }
+  //   response.json(
+  //     JSON.parse(data)
+  //   )
+  // })
+  const data = await readFileProm('./new-content.json', 'utf8')
+  response.json(
+    JSON.parse(data)
+  )
 })
 
 
 
 
-app.listen(8081, () => {
+app.listen(8082, () => {
 
   console.log('server running')
 }) 
