@@ -12,11 +12,16 @@ const koderSchema = new mongoose.Schema({
     required: true,
     min: 1
   },
+  gender: {
+    type: String,
+    enum: ['m', 'f', 'n'],
+    required: true
+  },
   email: {
     type: String,
     required: true
   },
-  passwrd: {
+  password: {
     type: String,
     required: true
   }

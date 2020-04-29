@@ -10,7 +10,13 @@ const mentorSchema = new mongoose.Schema({
   asignature: {
     type: String,
     required: true
+  },
+  mentorType: {
+    type: String,
+    enum: ['alfa', 'beta'],
+    required: true
   }
+
 })
 
 module.exports = mongoose.model('Mentors', mentorSchema)

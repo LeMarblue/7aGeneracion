@@ -3,7 +3,7 @@ const Koder = require('../models/koders')
 
 // los casos de uso son las acciones que puede ejercer un usuario en el sistema
 
-async function getAll () {
+function getAll () {
   // esto no se deberia hacer por la asyncronia
   /* let todos = null
   Koder.find()
@@ -14,20 +14,28 @@ async function getAll () {
     .catch()
   return todos */
 
-  const allKoders = await Koder.find()
-  return allKoders
+  return Koder.find()
 }
 
-async function create (koderData) {
-  const koderCreated = await Koder.create(koderData)
-  return koderCreated
-}
-
-module.exports = {
-  getAll,
-  create
+function create (koderData) {
+  return Koder.create(koderData)
 }
 
 // en la ruta
 // const Koders = require('...koders')
 // koders.getAll()
+
+function deleteByid (id) {
+  return Koder.findByIdAndRemove(id)
+}
+
+function updateByid (id, newKoderData) {
+  return Koder.findByIdAndUpdate(id, newKoderData)
+}
+
+module.exports = {
+  getAll,
+  create,
+  deleteByid,
+  updateByid
+}
