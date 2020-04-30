@@ -3,11 +3,13 @@ const express = require('express')
 // const koders = require('./usecases/koders')
 const kodersRouter = require('./routes/koders')
 const mentorsRouter = require('./routes/mentors')
+const authRouter = require('./routes/auth')
 const app = express()
 app.use(express.json())
 // montmos el router de koders
 app.use('/koders', kodersRouter)
 app.use('/mentors', mentorsRouter)
+app.use('/auth', authRouter)
 /* // todos los recursos se escriben en plural
 app.get('/koders', async (request, response) => {
   const allKoders = await koders.getAll()
