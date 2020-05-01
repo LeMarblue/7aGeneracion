@@ -1,7 +1,4 @@
 
-const bcrypt = require('bcrypt')
-
-
 const Mentor = require('../models/mentors')
 
 async function getAll () {
@@ -18,8 +15,6 @@ function deleteByid (id) {
 function updateByID (id, newMentorData) {
   return Mentor.findByIdAndUpdate(id, newMentorData)
 }
-
-
 
 module.exports = {
   getAll,

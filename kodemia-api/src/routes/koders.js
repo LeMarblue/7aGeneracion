@@ -3,8 +3,16 @@ const express = require('express')
 const koders = require('../usecases/koders')
 const router = express.Router()
 
+const auth = require('../middlewares/auth')
+
+// middle anivel de koders
+router.use((request, response, next) => {
+  console.log('middlewere router koders')
+  next()
+})
+
 // /koders/
-router.get('/', async (resquest, response) => {
+router.get('/', auth, async (resquest, response) => {
   try {
     const allKoders = await koders.getAll()
     response.json({
@@ -20,7 +28,8 @@ router.get('/', async (resquest, response) => {
     })
   }
 })
-router.post('/', async (request, response) => {
+
+router.post('/', auth, async (request, response) => {
   try {
     const newKoder = await koders.create(request.body)
     response.json({
